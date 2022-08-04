@@ -33,3 +33,12 @@ footer {
     justify-content: flex-end;
     background-color: var(--footer-background);
 }
+
+.contenders {
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.box {
+
+}
