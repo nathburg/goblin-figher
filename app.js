@@ -26,18 +26,18 @@ goblinNameButtonEl.addEventListener('click', () => {
     }
 });
 
-function renderGoblins() {
-    const goblinsEl = document.createElement('div');
-    for (let goblin of goblins) {
-        const newGoblin = document.createElement('div');
-        newGoblin.textContent = `${goblin.name} 👹 ${goblin.HP} HP`;
-        newGoblin.classList.add('goblin');
-        goblinsEl.append(newGoblin);
-    }
-    return goblinsEl;
+function renderGoblin(goblin) {
+    const goblinEl = document.createElement('div');
+    goblinEl.textContent = `${goblin.name} 👹 ${goblin.HP} HP`;
+    goblinEl.classList.add('goblin');
+
+    return goblinEl;
 }
 
 function displayGoblins() {
     goblinContainerEl.textContent = '';
-    goblinContainerEl.append(renderGoblins());
+    for (let goblin of goblins) {
+        const newGoblin = renderGoblin(goblin);
+        goblinContainerEl.append(newGoblin);
+    }
 }
