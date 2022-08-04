@@ -1,4 +1,6 @@
 const goblinContainerEl = document.getElementById("goblin-container");
+const goblinNameInputEl = document.getElementById("goblin-name-input");
+const goblinNameButtonEl = document.getElementById("goblin-name-button");
 
 let goblins = [
     {
@@ -12,6 +14,17 @@ let goblins = [
 ]
 
 displayGoblins();
+
+goblinNameButtonEl.addEventListener('click', () => {
+    if (goblinNameInputEl.value != "") {
+        const newGoblin = {
+            name: goblinNameInputEl.value,
+            HP: 3
+        };
+        goblins.push(newGoblin);
+        displayGoblins();
+    }
+});
 
 function renderGoblins() {
     const goblinsEl = document.createElement('div');
