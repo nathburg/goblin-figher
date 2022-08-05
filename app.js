@@ -20,7 +20,7 @@ let goblins = [
         HP: 3,
         emoji: '👹'
     }
-]
+];
 
 displayProtagonistHP();
 displayGoblins();
