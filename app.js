@@ -5,8 +5,9 @@ const yourStatusEl = document.getElementById('your-status');
 const goblinStatusEl = document.getElementById('goblin-status');
 const protagonistStatsEl = document.getElementById('protagonist-stats');
 const goblinGraveEl = document.getElementById('goblin-grave');
+const protagonistEmojiEl = document.getElementById('protagonist-emoji');
 
-let yourHP = 10;
+let yourHP = 5;
 let vanquishedGoblinCounter = 0;
 let goblins = [
     {
@@ -21,6 +22,7 @@ let goblins = [
     }
 ]
 
+displayProtagonistHP();
 displayGoblins();
 
 goblinNameButtonEl.addEventListener('click', () => {
@@ -41,7 +43,7 @@ function renderGoblin(goblin) {
     goblinEl.textContent = `${goblin.name} ${goblin.emoji} ${goblin.HP} HP`;
     goblinEl.classList.add('goblin');
     goblinEl.addEventListener('click', () => {
-        if (goblin.HP > 0) {
+        if (goblin.HP > 0 && yourHP > 0) {
             if (Math.random() > .5) {
                 goblin.HP--;
                 if (goblin.HP === 0) {
@@ -63,8 +65,14 @@ function renderGoblin(goblin) {
             }
             if (Math.random() > .7) {
                 yourHP--;
-                yourStatusEl.textContent = `You've been hit by ${goblin.name}!`;
-                protagonistStatsEl.textContent = `${yourHP} HP`;
+                if (yourHP === 0) {
+                    yourStatusEl.textContent = `You've been killed by ${goblin.name}!`;
+                    protagonistStatsEl.textContent = 'DEAD';
+                    protagonistEmojiEl.textContent = '💀';
+                } else {
+                    yourStatusEl.textContent = `You've been hit by ${goblin.name}!`;
+                    displayProtagonistHP();
+                }
             } else {
                 yourStatusEl.textContent = `${goblin.name}'s attack missed!`;
             }
@@ -81,4 +89,8 @@ function displayGoblins() {
     }
 }
 
+function displayProtagonistHP() {
+    protagonistStatsEl.textContent = '';
+    protagonistStatsEl.textContent = `${yourHP} HP`;
+}
 
