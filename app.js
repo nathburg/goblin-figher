@@ -42,50 +42,50 @@ function renderGoblin(goblin) {
     const goblinEl = document.createElement('button');
     goblinEl.textContent = `${goblin.name} ${goblin.emoji} ${goblin.HP} HP`;
     goblinEl.classList.add('goblin');
-    goblinEl.addEventListener('click', () => {
-        if (goblin.HP > 0 && yourHP > 0) {
-            if (Math.random() > .5) {
-                goblin.HP--;
-                if (goblin.HP === 0) {
-                    goblin.emoji = '💀';
-                    displayGoblins();
-                    goblinStatusEl.textContent = `You vanquished ${goblin.name}!`;
-                    vanquishedGoblinCounter++;
-                    if (vanquishedGoblinCounter === 1) {
-                        goblinGraveEl.textContent = 'You vanquished 1 goblin.';
-                    } else {
-                        goblinGraveEl.textContent = `You vanquished ${vanquishedGoblinCounter} goblins.`;
-                    }
-                } else {
-                    goblinStatusEl.textContent = `You hit ${goblin.name}!`;
-                    displayGoblins();
-                }                
-            } else {
-                goblinStatusEl.textContent = `Your attack missed!`;
-            }
-            if (Math.random() > .7) {
-                yourHP--;
-                if (yourHP === 0) {
-                    yourStatusEl.textContent = `You've been killed by ${goblin.name}!`;
-                    protagonistStatsEl.textContent = 'DEAD';
-                    protagonistEmojiEl.textContent = '💀';
-                } else {
-                    yourStatusEl.textContent = `You've been hit by ${goblin.name}!`;
-                    displayProtagonistHP();
-                }
-            } else {
-                yourStatusEl.textContent = `${goblin.name}'s attack missed!`;
-            }
-        }
-    });    
     return goblinEl;
 }
 
 function displayGoblins() {
     goblinContainerEl.textContent = '';
     for (let goblin of goblins) {
-        const newGoblin = renderGoblin(goblin);
-        goblinContainerEl.append(newGoblin);
+        const goblinEl = renderGoblin(goblin);
+        goblinEl.addEventListener('click', () => {
+            if (goblin.HP > 0 && yourHP > 0) {
+                if (Math.random() > .5) {
+                    goblin.HP--;
+                    if (goblin.HP === 0) {
+                        goblin.emoji = '💀';
+                        displayGoblins();
+                        goblinStatusEl.textContent = `You vanquished ${goblin.name}!`;
+                        vanquishedGoblinCounter++;
+                        if (vanquishedGoblinCounter === 1) {
+                            goblinGraveEl.textContent = 'You vanquished 1 goblin.';
+                        } else {
+                            goblinGraveEl.textContent = `You vanquished ${vanquishedGoblinCounter} goblins.`;
+                        }
+                    } else {
+                        goblinStatusEl.textContent = `You hit ${goblin.name}!`;
+                        displayGoblins();
+                    }                
+                } else {
+                    goblinStatusEl.textContent = `Your attack missed!`;
+                }
+                if (Math.random() > .7) {
+                    yourHP--;
+                    if (yourHP === 0) {
+                        yourStatusEl.textContent = `You've been killed by ${goblin.name}!`;
+                        protagonistStatsEl.textContent = 'DEAD';
+                        protagonistEmojiEl.textContent = '💀';
+                    } else {
+                        yourStatusEl.textContent = `You've been hit by ${goblin.name}!`;
+                        displayProtagonistHP();
+                    }
+                } else {
+                    yourStatusEl.textContent = `${goblin.name}'s attack missed!`;
+                }
+            }
+        });    
+        goblinContainerEl.append(goblinEl);
     }
 }
 
